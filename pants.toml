@@ -1,18 +1,37 @@
 [GLOBAL]
 pants_version = "2.23.1"
 pythonpath = ["%(buildroot)s/pants-plugins"]
-backend_packages.add = [
+backend_packages = [
   "pants.backend.python",
   "pants.backend.plugin_development",
   "lifecycle_plugin",
+  "pants_uv_lifecycle_plugin",
 ]
+
+plugins = [ 
+    "pants-uv-lifecycle-plugin==0.1.7.dev8",
+ ]
 
 [source]
 root_patterns = [
   "src/*",
   "test/*",
-  "/pants-plugins",
+  "pants-plugins",
 ]
 
 [python]
-interpreter_constraints = ['>=3.9']
+enable_resolves = true
+interpreter_constraints = [ ">=3.9"]
+default_resolve = "pants-lifecycle-plugin"
+
+[python.resolves]
+pants-lifecycle-plugin = "pants-plugins/lifecycle_plugin/pants-lifecycle-plugin.lock"
+
+[python.resolves_to_interpreter_constraints]
+pants-lifecycle-plugin = [">=3.9"]
+
+[python-repos]
+indexes = [
+    "https://test.pypi.org/simple/",
+    "https://pypi.org/simple/"
+]
