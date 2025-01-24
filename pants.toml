@@ -1,0 +1,18 @@
+[GLOBAL]
+pants_version = "2.23.1"
+pythonpath = ["%(buildroot)s/pants-plugins"]
+backend_packages.add = [
+  "pants.backend.python",
+  "pants.backend.plugin_development",
+  "lifecycle_plugin",
+]
+
+[source]
+root_patterns = [
+  "src/*",
+  "test/*",
+  "/pants-plugins",
+]
+
+[python]
+interpreter_constraints = ['>=3.9']
