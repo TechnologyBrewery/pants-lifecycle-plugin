@@ -5,9 +5,7 @@ from pants.core.goals.lint import lint
 from pants_uv_lifecycle_plugin.run_uv_sync import run_uv_sync_on_pyproject_modules
 from pants_uv_lifecycle_plugin.run_uv_build import run_uv_build_on_pyproject_modules
 from pants_uv_lifecycle_plugin.uv_run_behave import uv_run_behave_on_pyproject_modules
-
 import logging
-
 
 logger = logging.getLogger("lifecycle_plugin")
 logger.setLevel(logging.INFO)
@@ -57,12 +55,8 @@ async def run_lifecycle() -> LifecycleGoal:
         return LifecycleGoal(exit_code=sync_goal.exit_code)
 
     # If we get here, all steps succeeded.
-    logger.info("All uv-* steps completed successfully.")
+    logger.info("Lifecycle goal completed successfully.")
     return LifecycleGoal(exit_code=0)
-
-    logger.info("`lifecycle` completed!")
-
-    return LifecycleGoal(exit_code=max(lint_result.exit_code, test_result.exit_code))
 
 def rules():
     return collect_rules()
